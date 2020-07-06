@@ -1,35 +1,91 @@
-
+//libraries
+#include <fstream>
 #include <iostream>
-using namespace std;
 #include <string>
+using namespace std;
 
-string encode(string str) {
-	for (int i = 0; i < str.length(); i++) {
+//Programmer defined data types
+//NONE
 
-		str[i] = str[i] - 1;
+//Special compiler dependent definitions
+//NONE
 
-	}
-	return str;
+//global constants/variables
+//NONE
 
-}
-string decode(string str) {
-	for (int i = 0; i < str.length(); i++) {
+//Programmer defined functions
+void introduction(string obj, string ins); //user introduction
+string getFileName(); //get user filename
 
-		str[i] = str[i] + 1;
-
-	}
-	return str;
-
-}
-
+//main program
 int main()
 {
-	string line; 
-	cout << "Enter a line a text: \n";
-	getline(cin,line); 
+    //Data
+    string objective = "Encode any string entered by adding 1 to the ASCII value, outputs to secret.txt"; //program objective
+    string instructions = ""; //user instructions if needed
+    string fileName; //user selected input filename
+    ifstream fin; //represents input file
+    ofstream fout;
+    string line; //one line from input file
+    int lineNumber = 0; //number of lines in the input file
+    string output = "secret.txt";
+    introduction(objective, instructions); //user introduction
 
-	cout << encode(line) << endl;
-	cout << decode(line) << endl;
+    //input and open user selected file name
+
+    fileName = getFileName();
+    fin.open(fileName.c_str());
+    fout.open(output.c_str());
+    if (!(fin.good())) throw "I/O error";
+
+    //read and output each line in the input file
+    while (fin.good())
+    {
+        lineNumber = lineNumber + 1;
+        getline(fin, line);
+        for (int i = 0; i < line.length(); i++) {
+
+            line[i] = line[i] - 1;
+
+        }
 
 
-}
+
+        fout << line << endl;
+        cout << line << endl;
+    }//while fin.good
+
+}//main
+
+// introduction
+void introduction(string obj, string ins)
+{
+    //data
+    //obj is the program objective from main program
+    //ins is the optional user instructions
+
+    //output user introduction
+    cout << "Objective: This program will ";
+    cout << obj << endl;
+    cout << "Programmer: Teacher\n";
+    cout << "Editor(s) used: Notepad\n";
+    cout << "Compiler(s) used: TDM MinGW\n";
+    cout << "File: " << __FILE__ << endl;
+    cout << "Complied: " << __DATE__ << " at " << __TIME__ << endl;
+    cout << endl << ins << endl << endl;
+}//introduction
+
+//get user specified filename
+string getFileName()
+{
+    //data
+    string fN; //user specified filename
+
+    //input filename
+    do
+    {
+        cout << "Please enter an input filename [i.e.: x.txt]: ";
+        getline(cin, fN);
+    } while (!(fN.length() >= 5)); //do-while
+    return fN;
+}//getFileName
