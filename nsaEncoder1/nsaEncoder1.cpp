@@ -9,7 +9,6 @@ string getFileName();
 
 int main()
 {
-    
     string objective = "Encode any string entered by adding 1 to the ASCII value, outputs to secret.txt"; 
     string instructions = ""; 
     string fileName; 
@@ -19,7 +18,6 @@ int main()
     int lineNumber = 0; 
     string output = "secret.txt";
 
-   
 
     fileName = getFileName();
     fin.open(fileName.c_str());
